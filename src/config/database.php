@@ -1,8 +1,8 @@
 <?php
-    $servername = "localhost";
+    $servername = "127.0.0.1";
     $username = "root";
     $password = "";
-    $database= "db_socar";  
+    $database= "osc-2";  
     
     // Create connection
     $db = mysqli_connect($servername, $username, $password, $database) or die ("could not connect to mysql"); ;

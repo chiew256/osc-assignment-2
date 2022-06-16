@@ -2,7 +2,7 @@
     $servername = "127.0.0.1";
     $username = "root";
     $password = "";
-    $database= "osc-2";  
+    $database= "quiz";  
     
     // Create connection
     $db = mysqli_connect($servername, $username, $password, $database) or die ("could not connect to mysql"); ;

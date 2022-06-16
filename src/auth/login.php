@@ -19,20 +19,22 @@
             $result = mysqli_query($db, $query);
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
             $count = mysqli_num_rows($result);
-
+            echo $count;
+            print_r($row);
             if($count > 0){
                 $id = $row['id'];
                 $email = $row['email'];
                 $type = $row['type'];
                 $password2 = $row['password'];
 
-                if(password_verify($password, $password2)){
+                if($password == $password2){
                     $_SESSION['id'] = $id;
                     $_SESSION['email'] = $email;
                     $_SESSION['type'] = $type;
                     $_SESSION['loggedin'] = true;
 
-                    header("Location: dashboard.php");
+                    // change file location
+                    header("Location: ../quiz/index.php");
                 } else{
                     echo "<div class='form'>
                     <h3>Incorrect Email/password.</h3><br/>

@@ -1,7 +1,10 @@
 <!-- Background process to eval the answer -->
 
-<?php include 'database.php'; ?>
-<?php session_start(); ?>
+<?php 
+include 'database.php'; 
+include '../auth/me.php';
+?>
+
 
 <?php 
     // check to see if score is set_error_handler

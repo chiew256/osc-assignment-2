@@ -1,9 +1,8 @@
 <?php
 
     include 'database.php';  
-    include 'src\auth\me.php';  
+    include '../auth/me.php'; 
 
-    session_start();
 ?>
 
 <?php

@@ -57,6 +57,7 @@ INSERT INTO `upload` (`id`, `name`, `date`) VALUES
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 CREATE TABLE `Users` (
+  `id` int(11) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL

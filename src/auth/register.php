@@ -12,11 +12,13 @@
         if(isset($_POST['register'])){
             $email = stripslashes($_REQUEST['email']);
             $type = stripslashes($_REQUEST['type']);
+            $name = stripslashes($_REQUEST['name']);
+            $gender = stripslashes($_REQUEST['gender']);
             $password = stripslashes($_REQUEST['password']);
             $password_confirmation = stripslashes($_REQUEST['password_confirmation']);
             $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-            $checkQuery = "SELECT * FROM Users WHERE email = '$email'";
+            $checkQuery = "SELECT * FROM user WHERE email = '$email'";
             $duplicate = mysqli_query($db, $checkQuery);
             if ($password != $password_confirmation) {  
                 echo "<div class='form'>
@@ -32,14 +34,20 @@
             } 
             
             else {
-                $insertQuery = "INSERT INTO Users (email, type, password) VALUES
+                $insertQuery = "INSERT INTO user (email, type, password) VALUES
                 ('$email', '$type', '$password_hash')";
                 
+
+                if($results){echo "Data added.";}
+
                 if(mysqli_query($db, $insertQuery)){
                     echo "<div class='form'>
                     <h3>You are registered successfully.</h3><br/>
                     <p class='link'>Click here to <a href='login.php'>Login</a></p>
                     </div>";
+
+                   
+
                 }
                 else{
                     echo "<div class='form'>
@@ -52,11 +60,19 @@
             ?>
                 <form class="form" action="" method="post">
                     <h1 class="login-title">Registration</h1>
+                    <input type="text" class="login-input" name="name" placeholder="Name">
                     <input type="text" class="login-input" name="email" placeholder="Email">
                     <input type="password" class="login-input" name="password" placeholder="Password">
                     <input type="password" class="login-input" name="password_confirmation" placeholder="Password Confirmation">
                     <div class="select-type">
-                        <label for="cars" class="type-option">Choose a car:</label>
+                        <label for="gender" class="type-option">Your Gender:</label>
+                        <select id="gender" name="gender">
+                            <option value="student">Male</option>
+                            <option value="lecturer">Female</option>
+                        </select>
+                    </div>
+                    <div class="select-type">
+                        <label for="type" class="type-option">Choose a role:</label>
                         <select id="type" name="type">
                             <option value="student">Student</option>
                             <option value="lecturer">Lecturer</option>

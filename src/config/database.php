@@ -2,7 +2,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $database= "quiz";  
+    $database= "minispectrum_db";  
     
     // Create connection
     $db = mysqli_connect($servername, $username, $password, $database) or die ("could not connect to mysql"); ;

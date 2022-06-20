@@ -17,7 +17,7 @@
     $query = "SELECT * FROM questions WHERE quiz_id = ". $_SESSION['quiz_id'];
 
     // Get Results
-    $result = $mysqli -> query($query) or die($mysqli-> error.__LINE__);
+    $result =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
     $total = $result->num_rows;
     
 
@@ -28,7 +28,7 @@
 
     // Get result from query
     // pass error & line number
-    $result = $mysqli -> query($query) or die($mysqli-> error.__LINE__);
+    $result =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
     // associate array with requested data
     $question = $result -> fetch_assoc();
@@ -40,7 +40,7 @@
 
     // Get result from query
     // pass error & line number
-    $choices = $mysqli -> query($query) or die($mysqli-> error.__LINE__);
+    $choices =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
     if(!isset($_SESSION['display_num'])){
         $_SESSION['display_num'] = 1;

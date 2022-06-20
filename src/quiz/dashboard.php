@@ -12,7 +12,7 @@
 <body>
     
     <?php
-        if($_SESSION['type'] == "Student"){
+        if($_SESSION['type'] == "student"){
 
     ?>
         <a href="index.php" class="start">Take a Quiz</a>

@@ -14,7 +14,7 @@
             $email = stripslashes($_REQUEST['email']);
             $password = stripslashes($_REQUEST['password']);
 
-            $query = "SELECT id, email, password, type FROM Users WHERE email = '$email'";
+            $query = "SELECT email, password, type FROM user WHERE email = '$email'";
 
             $result = mysqli_query($db, $query);
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
@@ -22,13 +22,13 @@
             // echo $count;
             // print_r($row);
             if($count > 0){
-                $id = $row['id'];
+                // $id = $row['id'];
                 $email = $row['email'];
                 $type = $row['type'];
                 $password2 = $row['password'];
 
-                if($password == $password2){
-                    $_SESSION['id'] = $id;
+                if(password_verify($password, $password2)){
+                    // $_SESSION['id'] = $id;
                     $_SESSION['email'] = $email;
                     $_SESSION['type'] = $type;
                     $_SESSION['loggedin'] = true;

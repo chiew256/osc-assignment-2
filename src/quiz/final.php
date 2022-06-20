@@ -11,7 +11,7 @@
 $query = "SELECT * FROM quiz_marks";
 
 // Get result
-$results = $mysqli -> query($query) or die ($mysqli->error.__LINE__);
+$results =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
 // Get rows
 $total = $results -> num_rows;
@@ -53,11 +53,12 @@ $total = $results -> num_rows;
                     VALUES($total + 1, $quiz_id, $score, 1)";
 
             // Run Query
-            $insert_row = $mysqli->query($query) or die ($mysqli->error.__LINE__);
+            $insert_row =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
         ?>
 
             <a href="index.php" class="start">Take the quiz again.</a>
+            <a href="dashboard.php" class="start">Exit</a>
 
         </div>
     </main>

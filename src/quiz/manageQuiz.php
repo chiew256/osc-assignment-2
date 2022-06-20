@@ -61,6 +61,7 @@ include '../auth/me.php';
 
         <!-- <input type="submit" value="Edit" name="edit"> -->
         <input type="submit" value="Delete" name="delete">
+        <a href="dashboard.php" class="start">Cancel</a>
        
     </form>
 </body>

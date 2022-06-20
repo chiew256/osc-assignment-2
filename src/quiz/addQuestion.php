@@ -74,7 +74,7 @@ include '../auth/me.php';
                     $query = "SELECT * FROM questions";
 
                     // Get result
-                    $results = $mysqli -> query($query) or die ($mysqli->error.__LINE__);
+                    $results =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
                     // Get rows
                     $total = $results -> num_rows;
@@ -88,7 +88,7 @@ include '../auth/me.php';
                     $query = "SELECT * FROM choices";
 
                     // Get result
-                    $results = $mysqli -> query($query) or die ($mysqli->error.__LINE__);
+                    $results =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
                     // Get rows
                     $totalChoice = $results -> num_rows;
@@ -120,7 +120,7 @@ include '../auth/me.php';
                                 VALUES('$next', '$question_text', '$quiz_id')";
 
                     // Run Query
-                    $insert_row = $mysqli->query($query) or die ($mysqli->error.__LINE__);
+                    $insert_row = mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
                     // Validate insert
                     if($insert_row){
@@ -137,7 +137,7 @@ include '../auth/me.php';
                                             VALUES('$nextChoice','$next', '$is_correct', '$value')";
 
                                 // Run Query
-                                $insert_row = $mysqli->query($query) or die ($mysqli->error.__LINE__);
+                                $insert_row =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
                                 // Validate insert
                                 if($insert_row){
@@ -148,9 +148,9 @@ include '../auth/me.php';
                                 }
 
                             }
-
-                            echo 'Question has been added<br>';
+                           
                         }
+                        echo 'Question has been added<br>';
                     }
 
                 }
@@ -180,19 +180,19 @@ include '../auth/me.php';
                     <p>
 
                         <label>Question text</label>
-                        <input type="text" name="question_text[]">
+                        <input type="text" name="question_text[]" required>
                         
                     </p>
                     <p>
 
                         <label>Choice #1</label>
-                        <input type="text" name="choice1[]">
+                        <input type="text" name="choice1[]" required>
 
                     </p>
                     <p>
 
                         <label>Choice #2</label>
-                        <input type="text" name="choice2[]">
+                        <input type="text" name="choice2[]" required>
 
                     </p>
                     <p>
@@ -216,7 +216,7 @@ include '../auth/me.php';
                     <p>
 
                         <label>Correct Choice Number</label>
-                        <input type="number" name="correct_choice[]">
+                        <input type="number" name="correct_choice[]" required>
 
                     </p>
 

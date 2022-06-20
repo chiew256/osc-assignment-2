@@ -1,6 +1,5 @@
 <?php 
 
-include 'database.php'; 
 include '../auth/me.php';
 
 ?>
@@ -134,7 +133,7 @@ include '../auth/me.php';
                                 }
 
                                 //Choice query
-                                $query = "INSERT INTO choices  (id, question_number, is_correct, text)
+                                $query = "INSERT INTO choices  (choice_id, question_number, is_correct, choice)
                                             VALUES('$nextChoice','$next', '$is_correct', '$value')";
 
                                 // Run Query

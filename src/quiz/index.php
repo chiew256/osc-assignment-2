@@ -1,5 +1,4 @@
 <?php
-    include 'database.php';
     include '../auth/me.php';
 
     unset($_SESSION['question_id']);

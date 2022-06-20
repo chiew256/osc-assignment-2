@@ -4,7 +4,7 @@
 
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         // change file location
-        //  header("Location: ../quiz/index.php");
+        // header("Location: ../quiz/index.php");
         // exit();
     } else {
         header("Location: login.php");

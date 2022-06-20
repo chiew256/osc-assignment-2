@@ -1,6 +1,5 @@
 <?php
 
-    include 'database.php';  
     include '../auth/me.php'; 
 
 ?>
@@ -87,7 +86,7 @@
                 while($row = $choices->fetch_assoc()):
                 ?>
 
-                    <li><input name="choice" type="radio" value="<?php echo $row['id'] ?>"><?php echo $row['text'] ?></li>
+                    <li><input name="choice" type="radio" value="<?php echo $row['choice_id'] ?>"><?php echo $row['choice'] ?></li>
 
                 <?php
                     endwhile;

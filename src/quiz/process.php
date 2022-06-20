@@ -1,7 +1,6 @@
 <!-- Background process to eval the answer -->
 
 <?php 
-include 'database.php'; 
 include '../auth/me.php';
 ?>
 
@@ -43,7 +42,7 @@ include '../auth/me.php';
         $row = $result->fetch_assoc();
 
         // Set correct choice
-        $correct_choice = $row['id'];
+        $correct_choice = $row['choice_id'];
 
         // Compare
         if($correct_choice == $selected_choice){

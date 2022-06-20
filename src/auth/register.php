@@ -16,7 +16,12 @@
             $password_confirmation = stripslashes($_REQUEST['password_confirmation']);
             $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-            $checkQuery = "SELECT * FROM Users WHERE email = '$email'";
+            // additional info
+            $name = stripslashes($_REQUEST['name']);
+            $gender = stripslashes($_REQUEST['gender']);
+            $dob = date('Y-m-d', strtotime($_REQUEST['birthday']));
+
+            $checkQuery = "SELECT * FROM user WHERE email = '$email'";
             $duplicate = mysqli_query($db, $checkQuery);
             if ($password != $password_confirmation) {  
                 echo "<div class='form'>
@@ -32,14 +37,44 @@
             } 
             
             else {
-                $insertQuery = "INSERT INTO Users (email, type, password) VALUES
+                $insertUserTableQuery = "INSERT INTO user (email, type, password) VALUES
                 ('$email', '$type', '$password_hash')";
+
+                $insertStudentTableQuery = "INSERT INTO student (name, gender, dob, email) VALUES
+                ('$name', '$gender', '$dob', '$email')";
+
+                $insertLecturerTableQuery = "INSERT INTO lecturer (name, gender, dob, email) VALUES
+                ('$name', '$gender', '$dob', '$email')";
                 
-                if(mysqli_query($db, $insertQuery)){
-                    echo "<div class='form'>
-                    <h3>You are registered successfully.</h3><br/>
-                    <p class='link'>Click here to <a href='login.php'>Login</a></p>
-                    </div>";
+                if(mysqli_query($db, $insertUserTableQuery)){
+                    if($type == 'student') {
+                        if(mysqli_query($db, $insertStudentTableQuery)){
+                            echo "<div class='form'>
+                            <h3>You are registered successfully.</h3><br/>
+                            <p class='link'>Click here to <a href='login.php'>Login</a></p>
+                            </div>";
+                        }
+                        else{
+                            echo "<div class='form'>
+                            <h3>Required fields are missing.</h3><br/>
+                            <p class='link'>Click here to <a href='register.php'>registration</a> again.</p>
+                            </div>";
+                        }
+                    }
+                    else if($type == 'lecturer'){
+                        if(mysqli_query($db, $insertLecturerTableQuery)){
+                            echo "<div class='form'>
+                            <h3>You are registered successfully.</h3><br/>
+                            <p class='link'>Click here to <a href='login.php'>Login</a></p>
+                            </div>";
+                        }
+                        else{
+                            echo "<div class='form'>
+                            <h3>Required fields are missing.</h3><br/>
+                            <p class='link'>Click here to <a href='register.php'>registration</a> again.</p>
+                            </div>";
+                        }
+                    }
                 }
                 else{
                     echo "<div class='form'>
@@ -52,15 +87,27 @@
             ?>
                 <form class="form" action="" method="post">
                     <h1 class="login-title">Registration</h1>
+                    <input type="text" class="login-input" name="name" placeholder="Name">
                     <input type="text" class="login-input" name="email" placeholder="Email">
                     <input type="password" class="login-input" name="password" placeholder="Password">
                     <input type="password" class="login-input" name="password_confirmation" placeholder="Password Confirmation">
                     <div class="select-type">
-                        <label for="cars" class="type-option">Choose a car:</label>
+                        <label for="cars" class="type-option">User type:</label>
                         <select id="type" name="type">
                             <option value="student">Student</option>
                             <option value="lecturer">Lecturer</option>
                         </select>
+                    </div>
+                    <div class="select-type">
+                        <label for="cars" class="type-option">Gender:</label>
+                        <select id="gender" name="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="select-type">
+                        <label for="birthday" class="type-option">Birthday:</label>
+                        <input class="login-input" type="date" id="birthday" name="birthday">
                     </div>
                     <input type="submit" name="register" value="Register" class="login-button">
                     <p class="link"><a href="login.php">Click to Login</a></p>

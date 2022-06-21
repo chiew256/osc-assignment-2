@@ -8,7 +8,6 @@
 
 <?php
 
-$_SESSION['id'] = 1;
 
 // get quiz_id for the student
 $query = "SELECT * FROM enroll WHERE student_id = ".$_SESSION['id'];
@@ -24,7 +23,7 @@ $quiz_id = $row['quiz_id'];
 $query = "SELECT * FROM student WHERE student_id = ".$_SESSION['id'];
 $result = mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 $row = $result -> fetch_assoc();
-// $student_name = $row['student_name'];
+$student_name = $row['student_name'];
 
 
 
@@ -78,7 +77,7 @@ $_SESSION['question_id'] = $row['question_number'][0];
         <div class="container">
 
         <!-- Page before starting the quiz -->
-            <!-- <h3>Student Name: <?php echo $student_name; ?></h3> -->
+            <h3>Student Name: <?php echo $student_name; ?></h3>
             <h3>Student ID: <?php echo $_SESSION['id']; ?></h3>
             <h2><?php echo $quiz_name; ?></h2>
             <p>This is a multiple choice quiz to test your knowledge of PHP.</p>

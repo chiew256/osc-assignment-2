@@ -23,7 +23,7 @@ $quiz_id = $row['quiz_id'];
 $query = "SELECT * FROM student WHERE student_id = ".$_SESSION['id'];
 $result = mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 $row = $result -> fetch_assoc();
-$student_name = $row['student_name'];
+$student_name = $row['name'];
 
 
 

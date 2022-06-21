@@ -12,6 +12,8 @@
         if(isset($_POST['register'])){
             $email = stripslashes($_REQUEST['email']);
             $type = stripslashes($_REQUEST['type']);
+            $name = stripslashes($_REQUEST['name']);
+            $gender = stripslashes($_REQUEST['gender']);
             $password = stripslashes($_REQUEST['password']);
             $password_confirmation = stripslashes($_REQUEST['password_confirmation']);
             $password_hash = password_hash($password, PASSWORD_BCRYPT);

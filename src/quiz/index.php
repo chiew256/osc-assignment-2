@@ -1,8 +1,6 @@
 <?php
-    include 'database.php';
     include '../auth/me.php';
 
-    session_start();
     unset($_SESSION['question_id']);
     unset($_SESSION['display_num']);
     unset($_SESSION['score']);
@@ -12,15 +10,33 @@
 
 
 // get quiz_id for the student
-$query = "SELECT * FROM student WHERE student_id = 1";
-$result = $mysqli -> query($query) or die($mysqli-> error.__LINE__);
+$query = "SELECT * FROM enroll WHERE student_id = ".$_SESSION['id'];
+$result = mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());
+$row = $result -> fetch_assoc();
+$subject_id = $row['subject_id'];
+
+$query = "SELECT * FROM quiz_list WHERE subject_id = '$subject_id'";
+$result =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 $row = $result -> fetch_assoc();
 $quiz_id = $row['quiz_id'];
+
+$query = "SELECT * FROM student WHERE student_id = ".$_SESSION['id'];
+$result = mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
+$row = $result -> fetch_assoc();
+$student_name = $row['name'];
+
+
+
+if($quiz_id == null){
+    echo "Relax. No Quiz for you.";
+    header("Location = dashboard.php");
+}
 $_SESSION['quiz_id'] = $quiz_id;
+
 
 // get quiz_name
 $query = "SELECT quiz_name FROM quiz_list WHERE quiz_id = $quiz_id";
-$result = $mysqli -> query($query) or die($mysqli-> error.__LINE__);
+$result =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 $row = $result -> fetch_assoc();
 $quiz_name = $row['quiz_name'];
 
@@ -29,7 +45,7 @@ $quiz_name = $row['quiz_name'];
  * Get Total Question Number
  */
 $query = "SELECT * FROM questions WHERE quiz_id = $quiz_id";
-$result = $mysqli -> query($query) or die($mysqli-> error.__LINE__);
+$result =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 $total = $result->num_rows;
 
 // get question_id for the first question of this quiz
@@ -61,6 +77,8 @@ $_SESSION['question_id'] = $row['question_number'][0];
         <div class="container">
 
         <!-- Page before starting the quiz -->
+            <h3>Student Name: <?php echo $student_name; ?></h3>
+            <h3>Student ID: <?php echo $_SESSION['id']; ?></h3>
             <h2><?php echo $quiz_name; ?></h2>
             <p>This is a multiple choice quiz to test your knowledge of PHP.</p>
             <ul>

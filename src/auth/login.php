@@ -14,27 +14,37 @@
             $email = stripslashes($_REQUEST['email']);
             $password = stripslashes($_REQUEST['password']);
 
-            $query = "SELECT email, password, type FROM user WHERE email = '$email'";
+            $query = "SELECT password, type FROM user WHERE email = '$email'";
 
             $result = mysqli_query($db, $query);
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
             $count = mysqli_num_rows($result);
-            // echo $count;
-            // print_r($row);
+
             if($count > 0){
-                // $id = $row['id'];
-                $email = $row['email'];
                 $type = $row['type'];
                 $password2 = $row['password'];
 
                 if(password_verify($password, $password2)){
-                    // $_SESSION['id'] = $id;
+                    $id = 999;
+                    if($type == 'student'){
+                        $queryStudentTable = "SELECT student_id FROM student WHERE email = '$email'";
+                        $studentResult = mysqli_query($db, $queryStudentTable);
+                        $studentRow = mysqli_fetch_array($studentResult,MYSQLI_ASSOC);
+                        $id = $studentRow['student_id'];
+                    }
+                    else if($type == 'lecturer'){
+                        $queryLecturerTable = "SELECT lecturer_id FROM lecturer WHERE email = '$email'";
+                        $lecturerResult = mysqli_query($db, $queryLecturerTable);
+                        $lecturerRow = mysqli_fetch_array($lecturerResult,MYSQLI_ASSOC);
+                        $id = $lecturerRow['lecturer_id'];
+                    }
+                    $_SESSION['id'] = $id;
                     $_SESSION['email'] = $email;
                     $_SESSION['type'] = $type;
                     $_SESSION['loggedin'] = true;
 
                     // change file location
-                    header("Location: ../quiz/dashboard.php");
+                    header("Location: ../quiz/index.php");
                 } else{
                     echo "<div class='form'>
                     <h3>Incorrect Email/password.</h3><br/>

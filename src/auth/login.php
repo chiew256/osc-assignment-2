@@ -17,7 +17,7 @@
             $query = "SELECT password, type FROM user WHERE email = '$email'";
 
             $result = mysqli_query($db, $query);
-            $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
             $count = mysqli_num_rows($result);
 
             if($count > 0){
@@ -44,7 +44,7 @@
                     $_SESSION['loggedin'] = true;
 
                     // change file location
-                    header("Location: ../quiz/index.php");
+                    header("Location: ../dashboard/dashboard.php");
                 } else{
                     echo "<div class='form'>
                     <h3>Incorrect Email/password.</h3><br/>

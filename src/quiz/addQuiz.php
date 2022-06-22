@@ -1,8 +1,7 @@
 <?php 
 
-include 'database.php'; 
-session_start();
-include 'src\auth\me.php'; 
+
+include '../auth/me.php';
 
 ?>
 
@@ -12,13 +11,16 @@ include 'src\auth\me.php';
         $quiz_id = $_POST['quiz_id'];
         $quiz_name = $_POST['quiz_name'];
         $total_question = $_POST['total_question'];
+        $subject_id = $_POST['subject_list'];
+        echo $subject_id;
+        
 
         // Question query
-        $query = "INSERT INTO quiz_list (quiz_id, quiz_name, total_question)
-                    VALUES('$quiz_id', '$quiz_name', '$total_question')";
+        $query = "INSERT INTO quiz_list (quiz_id, quiz_name, total_question, subject_id)
+                    VALUES('$quiz_id', '$quiz_name', '$total_question', '$subject_id')";
 
         // Run Query
-        $insert_row = $mysqli->query($query) or die ($mysqli->error.__LINE__);
+        $insert_row = mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());
 
         if($insert_row){
             $_SESSION['total_question'] = $total_question;
@@ -34,12 +36,17 @@ include 'src\auth\me.php';
         $query = "SELECT * FROM quiz_list";
 
         // Get result
-        $results = $mysqli -> query($query) or die ($mysqli->error.__LINE__);
+        $results = mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
         // Get rows
         $total = $results -> num_rows;
 
         $next = $total + 1;
+
+
+        $query = "SELECT * FROM subject_srms";
+        $subject_list = mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
+        // print_r($subject_list);
 
 
 ?>
@@ -75,19 +82,38 @@ include 'src\auth\me.php';
             <p>
 
                 <label>Quiz ID</label>
-                <input type="number" name="quiz_id" value="<?php echo $next; ?>">
+                <input type="number" name="quiz_id" value="<?php echo $next; ?>" required>
             </p>
 
             <p>
 
                 <label>Quiz Name</label>
-                <input type="text" name="quiz_name">
+                <input type="text" name="quiz_name" required>
                 
             </p>
+
+            <p>
+
+            <label for="subject_list">Select a Subject: </label>
+
+            <select name="subject_list">
+                <?php
+
+                    while($subject = mysqli_fetch_array($subject_list, MYSQLI_ASSOC)):;
+                    print_r($subject);
+                ?>
+                
+                        <option value="<?php echo $subject['subject_id']; ?>" required><?php echo  $subject['subject_name']; ?></option>
+            <?php
+                    endwhile;
+            ?>
+            </select>
+            </p>
+                
             <p>
 
                 <label>Total Question</label>
-                <input type="number" name="total_question">
+                <input type="number" name="total_question" required>
 
             </p>
             

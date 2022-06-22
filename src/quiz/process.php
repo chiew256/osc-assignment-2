@@ -1,7 +1,9 @@
 <!-- Background process to eval the answer -->
 
-<?php include 'database.php'; ?>
-<?php session_start(); ?>
+<?php 
+include '../auth/me.php';
+?>
+
 
 <?php 
     // check to see if score is set_error_handler
@@ -22,7 +24,7 @@
         $query = "SELECT * FROM questions WHERE quiz_id =".$_SESSION['quiz_id'];
 
         // Get result
-        $results = $mysqli -> query($query) or die ($mysqli->error.__LINE__);
+        $results =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
         // Get rows
         $total = $results -> num_rows;
@@ -34,13 +36,13 @@
                     WHERE question_number = $number AND is_correct = 1";
 
         // Get result
-        $result = $mysqli->query($query) or die ($mysqli->error.__LINE__);
+        $result =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
         // Get row
         $row = $result->fetch_assoc();
 
         // Set correct choice
-        $correct_choice = $row['id'];
+        $correct_choice = $row['choice_id'];
 
         // Compare
         if($correct_choice == $selected_choice){

@@ -1,0 +1,22 @@
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.openbtn {
+    border: none;
+    margin-left: 8px;
+    margin-right: 8px;
+    
+}
+
+#main {
+    transition: margin-left .5s;
+}

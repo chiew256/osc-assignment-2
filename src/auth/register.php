@@ -16,7 +16,7 @@
             $password_confirmation = stripslashes($_REQUEST['password_confirmation']);
             $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-            $checkQuery = "SELECT * FROM Users WHERE email = '$email'";
+            $checkQuery = "SELECT * FROM User WHERE email = '$email'";
             $duplicate = mysqli_query($db, $checkQuery);
             if ($password != $password_confirmation) {  
                 echo "<div class='form'>
@@ -32,7 +32,7 @@
             } 
             
             else {
-                $insertQuery = "INSERT INTO Users (email, type, password) VALUES
+                $insertQuery = "INSERT INTO User (email, type, password) VALUES
                 ('$email', '$type', '$password_hash')";
                 
                 if(mysqli_query($db, $insertQuery)){

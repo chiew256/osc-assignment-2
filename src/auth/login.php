@@ -14,7 +14,7 @@
             $email = stripslashes($_REQUEST['email']);
             $password = stripslashes($_REQUEST['password']);
 
-            $query = "SELECT id, email, password, type FROM Users WHERE email = '$email'";
+            $query = "SELECT email, password, type FROM User WHERE email = '$email'";
 
             $result = mysqli_query($db, $query);
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);

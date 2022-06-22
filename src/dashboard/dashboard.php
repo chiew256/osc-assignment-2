@@ -26,10 +26,10 @@
                 <?php
                 foreach ($subjectArr as $idx => $subject) {
                     $subjectStr = $subject["subject_id"] . " " . $subject["subject_name"];
-                    
+                    $subjectId = $subject["subject_id"];
                     echo '<li class="fw-bold list-group-item d-flex justify-content-between">';
                     echo $subjectStr;
-                    echo '<a href="#" class="btn btn-primary">Go</a></li>';
+                    echo "<a href='../dashboard/subject.php?subject_id=$subjectId' class='btn btn-primary'>Go</a></li>";
                 }
                 ?>
             </ul>

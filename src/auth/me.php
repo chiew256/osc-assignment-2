@@ -7,7 +7,7 @@
         // header("Location: ../quiz/index.php");
         // exit();
     } else {
-        header("Location: login.php");
+        header("Location: ../auth/login.php");
         exit();
     }
 ?>

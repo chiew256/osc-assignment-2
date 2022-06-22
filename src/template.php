@@ -109,7 +109,7 @@ $subjectArr = mysqli_fetch_all($subjectObj, MYSQLI_ASSOC);
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Log out</a></li>
+                        <li><a class="dropdown-item" href="../auth/logout.php">Log out</a></li>
                     </ul>
                 </div>
             </div>

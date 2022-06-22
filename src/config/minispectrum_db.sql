@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2022 at 11:51 AM
+-- Generation Time: Jun 22, 2022 at 01:05 PM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -84,6 +84,16 @@ CREATE TABLE `marks_srms` (
   `marks` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `marks_srms`
+--
+
+INSERT INTO `marks_srms` (`marks_id`, `result_id`, `subject_id`, `marks`) VALUES
+(99, 28, 33, 50),
+(100, 28, 34, 30),
+(101, 29, 33, 10),
+(102, 29, 34, 20);
+
 -- --------------------------------------------------------
 
 --
@@ -134,6 +144,14 @@ CREATE TABLE `result_srms` (
   `result_percentage` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `result_srms`
+--
+
+INSERT INTO `result_srms` (`result_id`, `student_id`, `result_percentage`) VALUES
+(28, 2, '80.00'),
+(29, 3, '50.00');
+
 -- --------------------------------------------------------
 
 --
@@ -153,7 +171,9 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`student_id`, `name`, `gender`, `dob`, `email`) VALUES
-(1, 'Hong Jia Herng', 'Male', '2001-06-30', 'u2005313@siswa.um.edu.my');
+(1, 'Chai', 'Male', '2022-06-01', 'chai@gmail.com'),
+(2, 'abc', 'Male', '2022-06-02', 'abc@gmail.com'),
+(3, 'ali', 'Male', '2022-06-01', 'ali@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -165,6 +185,14 @@ CREATE TABLE `subject_srms` (
   `subject_id` int(11) NOT NULL,
   `subject_name` varchar(250) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `subject_srms`
+--
+
+INSERT INTO `subject_srms` (`subject_id`, `subject_name`) VALUES
+(33, 'Database'),
+(34, 'OSP');
 
 -- --------------------------------------------------------
 
@@ -198,7 +226,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`email`, `password`, `type`) VALUES
-('u2005313@siswa.um.edu.my', '$2y$10$/Qn5ZMn9UYnYjQQDlnJ/0u4qyRxU4gxnMIudFWbM86Ft5kqUSP/6e', 'student');
+('abc@gmail.com', '$2y$10$XJ5Ctb4zc6uoh8lmBTyTKOHUwvH0eLwAzEnYweNeNsNiF3BfPKrRK', 'student'),
+('abu@gmail.com', '$2y$10$jcI3/Qj5JbIGkpMUlzrMk.BtnR.S1xDNPdIC.2lhQ7JWlzgzb3iwe', 'lecturer'),
+('ali@gmail.com', '$2y$10$ucY/JlNSiooKfoUGWchuX.QDAiyJuRF/L7u2kobOAgyUvdi7bnyMe', 'student'),
+('chai@gmail.com', '123456', 'student');
 
 --
 -- Indexes for dumped tables
@@ -312,25 +343,25 @@ ALTER TABLE `lecturer`
 -- AUTO_INCREMENT for table `marks_srms`
 --
 ALTER TABLE `marks_srms`
-  MODIFY `marks_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `marks_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `result_srms`
 --
 ALTER TABLE `result_srms`
-  MODIFY `result_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `result_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `subject_srms`
 --
 ALTER TABLE `subject_srms`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Constraints for dumped tables

@@ -89,27 +89,27 @@
             ?>
                 <form class="form" action="" method="post">
                     <h1 class="login-title">Registration</h1>
-                    <input type="text" class="login-input" name="name" placeholder="Name">
-                    <input type="text" class="login-input" name="email" placeholder="Email">
-                    <input type="password" class="login-input" name="password" placeholder="Password">
-                    <input type="password" class="login-input" name="password_confirmation" placeholder="Password Confirmation">
+                    <input type="text" class="login-input" name="name" placeholder="Name" required>
+                    <input type="text" class="login-input" name="email" placeholder="Email" required>
+                    <input type="password" class="login-input" name="password" placeholder="Password" required>
+                    <input type="password" class="login-input" name="password_confirmation" placeholder="Password Confirmation" required>
                     <div class="select-type">
                         <label for="cars" class="type-option">User type:</label>
-                        <select id="type" name="type">
+                        <select id="type" name="type" required>
                             <option value="student">Student</option>
                             <option value="lecturer">Lecturer</option>
                         </select>
                     </div>
                     <div class="select-type">
                         <label for="cars" class="type-option">Gender:</label>
-                        <select id="gender" name="gender">
+                        <select id="gender" name="gender" required>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
                     </div>
                     <div class="select-type">
                         <label for="birthday" class="type-option">Birthday:</label>
-                        <input class="login-input" type="date" id="birthday" name="birthday">
+                        <input class="login-input" type="date" id="birthday" name="birthday" required>
                     </div>
                     <input type="submit" name="register" value="Register" class="login-button">
                     <p class="link"><a href="login.php">Click to Login</a></p>

@@ -23,18 +23,15 @@
         <hr>
         <div class="card">
             <ul class="list-group list-group-flush">
-                <li class="fw-bold list-group-item d-flex justify-content-between">
-                    WIA2001 Database
-                    <a href="#" class="btn btn-primary">Go</a>
-                </li>
-                <li class="fw-bold list-group-item d-flex justify-content-between">
-                    WIA2002 Operating Systems
-                    <a href="#" class="btn btn-primary">Go</a>
-                </li>
-                <li class="fw-bold list-group-item d-flex justify-content-between">
-                    WIA2003 Algorithms
-                    <a href="#" class="btn btn-primary">Go</a>
-                </li>
+                <?php
+                foreach ($subjectArr as $idx => $subject) {
+                    $subjectStr = $subject["subject_id"] . " " . $subject["subject_name"];
+                    $subjectId = $subject["subject_id"];
+                    echo '<li class="fw-bold list-group-item d-flex justify-content-between">';
+                    echo $subjectStr;
+                    echo "<a href='../dashboard/subject.php?subject_id=$subjectId' class='btn btn-primary'>Go</a></li>";
+                }
+                ?>
             </ul>
         </div>
     </div>

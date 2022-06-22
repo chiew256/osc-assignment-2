@@ -43,7 +43,7 @@ $homeworkArr = mysqli_fetch_all($homeworkObj, MYSQLI_ASSOC);
             <div class="row">
                 <?php
                 foreach ($quizListArr as $idx => $quizInfo) {
-                    
+                    $quizId = $quizInfo['quiz_id'];
                     $quizName = $quizInfo['quiz_name'];
                     $numQues = $quizInfo['total_question'];
                     echo "<div class='col-lg-4 col-md-6 col-xs-12 card'>
@@ -52,7 +52,7 @@ $homeworkArr = mysqli_fetch_all($homeworkObj, MYSQLI_ASSOC);
                                 <p class='card-text'>There are a total of $numQues questions.</p>
                             </div>
                             <div class='card-body'>
-                                <a href='#' class='card-link'>Go</a>
+                                <a href='../quiz/quiz.php?subject_id=$subjectId&quiz_id=$quizId' class='card-link'>Go</a>
                             </div>
                         </div>";
                 }

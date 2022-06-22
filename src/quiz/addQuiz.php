@@ -1,83 +1,70 @@
-<?php 
+<?php include '../template.php' ?>
 
+<?php startblock('head') ?>
+<title>Quiz</title>
+<link rel="stylesheet" href="css/style.css">
+<?php endblock() ?>
 
-include '../auth/me.php';
-
-?>
+<?php startblock('content') ?>
 
 <?php
-    if(isset($_POST['submit'])){
 
-        $quiz_id = $_POST['quiz_id'];
-        $quiz_name = $_POST['quiz_name'];
-        $total_question = $_POST['total_question'];
-        $subject_id = $_POST['subject_list'];
-        echo $subject_id;
-        
+$subject_id = $_GET['subject_id'];
+$quiz_id = $_GET['quiz_id'];
 
-        // Question query
-        $query = "INSERT INTO quiz_list (quiz_id, quiz_name, total_question, subject_id)
+if (isset($_POST['submit'])) {
+
+    $quiz_id = $_POST['quiz_id'];
+    $quiz_name = $_POST['quiz_name'];
+    $total_question = $_POST['total_question'];
+
+    $query = "INSERT INTO quiz_list (quiz_id, quiz_name, total_question, subject_id)
                     VALUES('$quiz_id', '$quiz_name', '$total_question', '$subject_id')";
 
-        // Run Query
-        $insert_row = mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());
+    // Run Query
+    $insert_row = mysqli_query($db, $query) or die("Error in query : $query ." . mysql_error());
 
-        if($insert_row){
-            $_SESSION['total_question'] = $total_question;
-            $_SESSION['quiz_id'] = $quiz_id;
-            header("Location: addQuestion.php");
-        }
-
+    if ($insert_row) {
+        $_SESSION['total_question'] = $total_question;
+        $_SESSION['quiz_id'] = $quiz_id;
+        header("Location: addQuestion.php?subject_id=$subject_id");
     }
+}
 
-     /**
-         * Get total quiz
-         */
-        $query = "SELECT * FROM quiz_list";
+/**
+ * Get total quiz
+ */
+$query = "SELECT * FROM quiz_list";
 
-        // Get result
-        $results = mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
+// Get result
+$results = mysqli_query($db, $query) or die("Error in query : $query ." . mysql_error());;
 
-        // Get rows
-        $total = $results -> num_rows;
+// Get rows
+$total = $results->num_rows;
 
-        $next = $total + 1;
+$next = $total + 1;
 
 
-        $query = "SELECT * FROM subject_srms";
-        $subject_list = mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
-        // print_r($subject_list);
+$query = "SELECT * FROM subject_srms";
+$subject_list = mysqli_query($db, $query) or die("Error in query : $query ." . mysql_error());;
+// print_r($subject_list);
 
 
 ?>
 
-<!-- Admin page, add question to db through browser -->
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP Quiz</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+<header>
+    <div class="container">
+        <h1>PHP Quizzer</h1>
+    </div>
+</header>
+
+<main>
+    <div class="container">
 
 
-</head>
-<body>
-    
-
-    <header>
-        <div class = "container">
-            <h1>PHP Quizzer</h1>
-        </div>
-    </header>
-
-    <main>
-        <div class="container">
-
-        
         <h2>Add a Quiz</h2>
-
-        <form method="post" action="addQuiz.php">
+        
+        <form method="post" action=<?php echo "addQuiz.php?subject_id=$subject_id&quiz_id=$quiz_id" ?>>
 
             <p>
 
@@ -89,48 +76,23 @@ include '../auth/me.php';
 
                 <label>Quiz Name</label>
                 <input type="text" name="quiz_name" required>
-                
+
             </p>
 
-            <p>
-
-            <label for="subject_list">Select a Subject: </label>
-
-            <select name="subject_list">
-                <?php
-
-                    while($subject = mysqli_fetch_array($subject_list, MYSQLI_ASSOC)):;
-                    print_r($subject);
-                ?>
-                
-                        <option value="<?php echo $subject['subject_id']; ?>" required><?php echo  $subject['subject_name']; ?></option>
-            <?php
-                    endwhile;
-            ?>
-            </select>
-            </p>
-                
             <p>
 
                 <label>Total Question</label>
                 <input type="number" name="total_question" required>
 
             </p>
-            
+
             <p>
                 <input name="submit" type="submit" value="Submit">
 
             </p>
 
         </form>
-        </div>
-    </main>
+    </div>
+</main>
 
-    <footer>
-        <div class="container">
-            Copyright &copy; 2022, PHP Quizzer
-        </div>
-    </footer>
-</body>
-</html>
-
+<?php endblock() ?>

@@ -51,8 +51,6 @@ if (!isset($_SESSION['display_num'])) {
     $_SESSION['display_num'] = 1;
 }
 
-
-
 ?>
 <header>
     <div class="container">
@@ -86,10 +84,8 @@ if (!isset($_SESSION['display_num'])) {
 
             </ul>
             <input type="submit" name="submit" value="Submit">
-
-
-            <a href="index.php" class="home">End Quiz</a>
-            <!-- <input type="hidden" name="number" value="<?php echo $number; ?>"/> -->
+            
+            <a href=<?php echo "quiz.php?subject_id=$subject_id&quiz_id=$quiz_id"; ?> class="home">End Quiz</a>
 
         </form>
 

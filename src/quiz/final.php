@@ -40,13 +40,16 @@ $total = $results->num_rows;
 
         $score = $_SESSION['score'];
         $quiz_id = $_SESSION['quiz_id'];
-
-        // mark query
-        $query = "INSERT INTO quiz_marks (quiz_mark_id, quiz_id, quiz_mark, student_id)
-                    VALUES($total + 1, $quiz_id, $score, 1)";
-
-        // Run Query
-        $insert_row =  mysqli_query($db, $query) or die("Error in query : $query ." . mysql_error());;
+        $query = "SELECT * FROM quiz_marks WHERE quiz_id = '$quiz_id' AND student_id = '$id'";
+        $result =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
+        
+        if(mysqli_num_rows($result) > 0){
+            $query = "UPDATE quiz_marks SET quiz_mark = '$score' WHERE quiz_id = '$quiz_id' AND student_id = '$id'";
+        }else{
+            $query = "INSERT INTO quiz_marks (quiz_mark_id, quiz_id, quiz_mark, student_id)
+            VALUES($total + 1, $quiz_id, $score, $id)";
+        }
+        $result =  mysqli_query($db, $query) or die("Error in query : $query .".mysql_error());;
 
         ?>
 

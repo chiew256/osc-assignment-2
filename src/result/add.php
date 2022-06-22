@@ -2,6 +2,21 @@
 
 <?php startblock('head') ?>
 <link rel="stylesheet" href="../style.css">
+<!-- Custom fonts for this template-->
+<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="../css/sb-admin-2.min.css" rel="stylesheet">
+
+<!-- Custom styles for this page -->
+<link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="../vendor/parsley/parsley.css" />
+
+<link rel="stylesheet" type="text/css" href="../vendor/bootstrap-select/bootstrap-select.min.css" />
+
+<link rel="stylesheet" type="text/css" href="../vendor/datepicker/bootstrap-datepicker.css" />
 <title>Result</title>
 <?php endblock() ?>
 
@@ -11,15 +26,11 @@
 
 // add.php
 
-include('../auth/me.php');
-
-include('header.php');
-
 $query = "
-        SELECT * FROM student 
-        LEFT JOIN result_srms
-        ON result_srms.student_id=student.student_id
-        WHERE result_srms.student_id IS NULL";
+    SELECT student.student_id, student.name FROM student 
+    LEFT JOIN result_srms
+    ON result_srms.student_id=student.student_id
+    WHERE result_srms.result_id IS NULL";
 
 $student = mysqli_query($db, $query);
 
@@ -48,17 +59,13 @@ $subject = mysqli_query($db, $query2);
                                 <?php
                                     if (mysqli_num_rows($student) > 0) 
                                     {
-                                        while ($row = mysqli_fetch_assoc($student)) 
-                                        {
-                                            $name = $row['name'];
-                                            echo '
-                                            <option value="'.$row['student_id'].'">'.$name.'</option?
-                                            ';
+                                        $student_table = mysqli_fetch_all($student, MYSQLI_ASSOC);
+                                        foreach ($student_table as $idx => $student_info) {
+                                            $cur_name = $student_info['name'];
+                                            $cur_student_id = $student_info['student_id'];
+                                            echo "<option value='$cur_student_id'>$cur_name</option>";
                                             echo '<br>';
                                         }
-                                        ?>
-                                        <input type="hidden" name="name" id="name" class="form-control" required data-parsley-pattern="/^[a-zA-Z0-9 \s]+$/" data-parsley-maxlength="175" data-parsley-trigger="keyup" value="<?php echo $name ?>" />
-                                        <?php
                                     }
                                 ?>
                                 </select>

@@ -8,17 +8,16 @@ if (isset($_POST['add'])) {
 
     $total = 0;
     $count = 0;
-    $name = $_POST['name'];
+    $student_id = $_POST['student_id'];
 
     $query = "
             SELECT * FROM student
-            WHERE name = '$name'
+            WHERE student_id = '$student_id'
             ";
 
     $student = mysqli_query($db, $query);
     if (mysqli_num_rows($student) > 0) {
         while ($row = mysqli_fetch_assoc($student)) {
-            $student_id = $row['student_id'];
             $result_percentage = '0.00';
 
             $query2 = "

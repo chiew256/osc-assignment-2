@@ -3,13 +3,19 @@
 include_once("../auth/me.php");
 
 $id = $_SESSION["id"];
-$nameQuery = "SELECT name FROM " . $_SESSION["type"] . " WHERE " . $_SESSION["type"] . "_id" . " = " . $id . ";"; 
+$nameQuery = "SELECT name FROM " . $_SESSION["type"] . " WHERE " . $_SESSION["type"] . "_id" . " = " . $id . ";";
 $nameObj = mysqli_query($db, $nameQuery);
 $name = mysqli_fetch_array($nameObj, MYSQLI_ASSOC)["name"];
 
 $subjectQuery = "SELECT * FROM subject_srms";
 $subjectObj = mysqli_query($db, $subjectQuery);
 $subjectArr = mysqli_fetch_all($subjectObj, MYSQLI_ASSOC);
+
+if ($_SESSION['type'] == "student") {
+    $resultUrl = "../result/sResult.php";
+} else {
+    $resultUrl = "../result/lResult.php";
+}
 ?>
 
 
@@ -71,7 +77,7 @@ $subjectArr = mysqli_fetch_all($subjectObj, MYSQLI_ASSOC);
                 </div>
             </li>
             <li>
-                <a href="../result/result.php" class="nav-link text-white">
+                <a href=<?php echo $resultUrl; ?> class="nav-link text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-app pe-none me-2" viewBox="0 0 16 16">
                         <path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h6zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z" />
                     </svg>
@@ -101,11 +107,11 @@ $subjectArr = mysqli_fetch_all($subjectObj, MYSQLI_ASSOC);
                             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
                         </svg>
                     </a>
-                    
+
                     <ul class="dropdown-menu dropdown-menu-dark" style=" left:auto; " aria-labelledby="dropdownUser">
                         <li><a class="dropdown-item" href="../dashboard/dashboard.php">Dashboard</a></li>
                         <li><a class="dropdown-item" href="../profile/profile.php">Profile</a></li>
-                        <li><a class="dropdown-item" href="../result/result.php">Result</a></li>
+                        <li><a class="dropdown-item" href=<?php echo $resultUrl; ?>>Result</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -116,8 +122,8 @@ $subjectArr = mysqli_fetch_all($subjectObj, MYSQLI_ASSOC);
         </header>
 
         <main class="m-4">
-        <?php startblock("content") ?>
-        <?php endblock() ?>
+            <?php startblock("content") ?>
+            <?php endblock() ?>
         </main>
 
         <footer class="mt-auto text-muted py-5">

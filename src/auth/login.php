@@ -44,7 +44,8 @@
                     $_SESSION['loggedin'] = true;
 
                     // change file location
-                    header("Location: ../dashboard/dashboard.php");
+                    header("Location: ../result/lResult.php");
+                    // header("Location: ../result/sResult.php");
                 } else{
                     echo "<div class='form'>
                     <h3>Incorrect Email/password.</h3><br/>

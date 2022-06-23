@@ -49,10 +49,8 @@
 			";
 
 		$student = mysqli_query($db, $query);
-		if (mysqli_num_rows($student) > 0) 
-		{
-			while ($row = mysqli_fetch_array($student, MYSQLI_ASSOC))
-			{   
+		if (mysqli_num_rows($student) > 0) {
+			while ($row = mysqli_fetch_array($student, MYSQLI_ASSOC)) {
 				$student_id = $row['student_id'];
 				$name = $row['name'];
 				$email = $row['email'];
@@ -75,18 +73,15 @@
 			";
 
 		$result = mysqli_query($db, $query);
-		if (mysqli_num_rows($result) > 0) 
-		{
-			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-			{   
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				print_r($row);
 				$result_id = $row['result_id'];
 				$result_percentage = $row['result_percentage'];
 			}
-		}
-		
-		if ($result_percentage != NULL) 
-		{
-			echo '
+
+			if ($result_percentage != NULL) {
+				echo '
 			<div class="table-responsive">
 				<table class="table table-bordered">
 					<tr>
@@ -96,7 +91,7 @@
 					</tr>
 			';
 
-			$query = "
+				$query = "
 			SELECT subject_srms.subject_name, marks_srms.marks 
 			FROM marks_srms 
 			INNER JOIN subject_srms 
@@ -104,44 +99,55 @@
 			WHERE marks_srms.result_id = '$result_id'
 			";
 
-			$subject = mysqli_query($db, $query);
+				$subject = mysqli_query($db, $query);
 
-			$count = 0;
-			$total = 0;
-			
-			if (mysqli_num_rows($subject) > 0) 
-			{
-				while ($row = mysqli_fetch_array($subject, MYSQLI_ASSOC))
-				{   
-					$subject_name = $row['subject_name'];
-					$marks = $row['marks'];
+				$count = 0;
+				$total = 0;
 
-					$count++;
-					echo '
+				if (mysqli_num_rows($subject) > 0) {
+					while ($row = mysqli_fetch_array($subject, MYSQLI_ASSOC)) {
+						$subject_name = $row['subject_name'];
+						$marks = $row['marks'];
+
+						$count++;
+						echo '
 						<tr>
-							<td>' .$count. '</td>
-							<td>' .$subject_name. '</td>
-							<td>' .$marks. '</td>
+							<td>' . $count . '</td>
+							<td>' . $subject_name . '</td>
+							<td>' . $marks . '</td>
 						</tr>
 					';
-					$total += $marks;
+						$total += $marks;
+					}
 				}
-			}
 
-			echo '
+				echo '
 					<tr>
 						<td colspan="2" align="right"><b>Total</b></td>
-						<td>'.$total.'</td>
+						<td>' . $total . '</td>
 					</tr>
 					<tr>
 						<td colspan="2" align="right"><b>Percentage</b></td>
-						<td>'.$result_percentage.'%</td>
+						<td>' . $result_percentage . '%</td>
 					</tr>
 				</table>
 			</div>
 			';
-		} 
-		else {
+			} else {
+				echo '<h4 align="center">No Result Found</h4>';
+			}
+		} else {
+			echo '
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<tr>
+						<th>#</th>
+						<th>Subject</th>
+						<th>Obtain Mark</th>
+					</tr>
+				</table>
+			</div>
+			';
 			echo '<h4 align="center">No Result Found</h4>';
 		}
 

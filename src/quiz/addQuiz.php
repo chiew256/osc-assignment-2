@@ -10,11 +10,11 @@
 <?php
 
 $subject_id = $_GET['subject_id'];
-$quiz_id = $_GET['quiz_id'];
 
 if (isset($_POST['submit'])) {
 
     $quiz_id = $_POST['quiz_id'];
+    echo $quiz_id;
     $quiz_name = $_POST['quiz_name'];
     $total_question = $_POST['total_question'];
 
@@ -64,7 +64,7 @@ $subject_list = mysqli_query($db, $query) or die("Error in query : $query ." . m
 
         <h2>Add a Quiz</h2>
         
-        <form method="post" action=<?php echo "addQuiz.php?subject_id=$subject_id&quiz_id=$quiz_id" ?>>
+        <form method="post" action=<?php echo "addQuiz.php?subject_id=$subject_id" ?>>
 
             <p>
 

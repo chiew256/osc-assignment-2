@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="css/style.css">
 <?php endblock() ?>
 
+<?php startblock('content') ?>
+
 <?php
 
 unset($_SESSION['question_id']);
@@ -47,7 +49,7 @@ $quiz_name = $row['quiz_name'];
  * 
  * Get Total Question Number
  */
-$query = "SELECT * FROM questions WHERE quiz_id = $quiz_id";
+$query = "SELECT * FROM questions WHERE quiz_id = $quiz_id ORDER BY question_number";
 $result =  mysqli_query($db, $query) or die("Error in query : $query ." . mysql_error());;
 $total = $result->num_rows;
 
@@ -58,7 +60,6 @@ $_SESSION['question_id'] = $row['question_number'][0];
 
 ?>
 
-<?php startblock('content') ?>
 <header>
     <div class="container">
         <h1>PHP Quizzer</h1>
@@ -79,9 +80,18 @@ $_SESSION['question_id'] = $row['question_number'][0];
             <li><strong>Estimated Time:</strong><?php echo $total * .5 . " Minutes"; ?></li>
         </ul>
         <!-- Goes to question.php and the quesiton 1 -->
+        <?php
+        if ($_SESSION["type"] == "lecturer") {
+        ?>
+        <?php
+        } else {
+        ?>
         <a href=<?php echo "question.php?subject_id=$subject_id&quiz_id=$quiz_id" ?> class="start">Start Quiz</a>
-        <a href=<?php echo "addQuiz.php?subject_id=$subject_id&quiz_id=$quiz_id" ?> class="start">Add Quiz</a>
+        <?php
+        }
+        ?>
         
+
 
     </div>
 </main>

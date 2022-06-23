@@ -37,7 +37,16 @@ $homeworkArr = mysqli_fetch_all($homeworkObj, MYSQLI_ASSOC);
 
 <div class="card mb-4">
     <div class="card-body">
-        <h2 class="card-title">Contents</h2>
+        <div class="d-flex justify-content-between">
+            <h2 class="card-title">Quiz</h2>
+            <?php
+            if ($_SESSION["type"] == "lecturer") {
+            ?>
+            <a class="btn btn-primary" href=<?php echo "../quiz/addQuiz.php?subject_id=$subjectId" ?> role="button">Add Quiz</a>
+            <?php
+            }
+            ?>
+        </div>
         <hr>
         <div class="container-fluid">
             <div class="row">
@@ -56,10 +65,32 @@ $homeworkArr = mysqli_fetch_all($homeworkObj, MYSQLI_ASSOC);
                             </div>
                         </div>";
                 }
+                ?>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h2 class="card-title">Homework</h2>
+            <?php
+            if ($_SESSION["type"] == "lecturer") {
+            ?>
+            <a class="btn btn-primary" href="#" role="button">Add Homework</a>
+            <?php
+            }
+            ?>
+        </div>
+        <hr>
+        <div class="container-fluid">
+            <div class="row">
+                <?php
                 foreach ($homeworkArr as $idx => $homeworkInfo) {
-                    
+
                     $homeworkId = $homeworkInfo['homework_id'];
-                    
+
                     echo "<div class='col-lg-4 col-md-6 col-xs-12 card'>
                             <div class='card-body'>
                                 <h5 class='card-title'>Homework $homeworkId</h5>
@@ -71,11 +102,8 @@ $homeworkArr = mysqli_fetch_all($homeworkObj, MYSQLI_ASSOC);
                         </div>";
                 }
                 ?>
-
             </div>
         </div>
-
-
     </div>
 </div>
 

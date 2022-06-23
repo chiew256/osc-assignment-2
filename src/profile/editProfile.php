@@ -13,10 +13,11 @@ $userObj = mysqli_query($db, $userQuery);
 $userInfo = mysqli_fetch_array($userObj, MYSQLI_ASSOC);
 
 if (isset($_POST['update'])) {
-  $updateQuery = "UPDATE student SET name = '" . $_POST['name']
-    . "', gender = '" . $_POST['gender']
-    . "', dob = '" . $_POST['dob']
-    . "'WHERE student_id = " . $_POST['id'];
+  $updateQuery = "UPDATE " . $_SESSION['type'] . " SET name = '" . $_POST['name']
+  . "', gender = '" . $_POST['gender']
+  . "', dob = '" . $_POST['dob']
+  . "'WHERE " . $_SESSION['type'] . "_id = " . $_POST['id'];
+
 
   $updateObj = mysqli_query($db, $updateQuery);
   if ($updateObj) {

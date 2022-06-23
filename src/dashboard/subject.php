@@ -42,7 +42,7 @@ $homeworkArr = mysqli_fetch_all($homeworkObj, MYSQLI_ASSOC);
             <?php
             if ($_SESSION["type"] == "lecturer") {
             ?>
-            <a class="btn btn-primary" href=<?php echo "../quiz/addQuiz.php?subject_id=$subjectId" ?> role="button">Add Quiz</a>
+                <a class="btn btn-primary" href=<?php echo "../quiz/addQuiz.php?subject_id=$subjectId" ?> role="button">Add Quiz</a>
             <?php
             }
             ?>
@@ -78,7 +78,7 @@ $homeworkArr = mysqli_fetch_all($homeworkObj, MYSQLI_ASSOC);
             <?php
             if ($_SESSION["type"] == "lecturer") {
             ?>
-            <a class="btn btn-primary" href="#" role="button">Add Homework</a>
+                <a class="btn btn-primary" href="#" role="button">Add Homework</a>
             <?php
             }
             ?>
@@ -86,21 +86,30 @@ $homeworkArr = mysqli_fetch_all($homeworkObj, MYSQLI_ASSOC);
         <hr>
         <div class="container-fluid">
             <div class="row">
+                <div class='col-lg-4 col-md-6 col-xs-12 card'>
+                    <div class='card-body'>
+                        <h5 class='card-title'>Homework</h5>
+                        <p class='card-text'>Please attempt the homework.</p>
+                    </div>
+                    <div class='card-body'>
+                        <a href='../homework/homework.php' class='card-link'>Go</a>
+                    </div>
+                </div>
                 <?php
-                foreach ($homeworkArr as $idx => $homeworkInfo) {
+                // foreach ($homeworkArr as $idx => $homeworkInfo) {
 
-                    $homeworkId = $homeworkInfo['homework_id'];
+                //     $homeworkId = $homeworkInfo['homework_id'];
 
-                    echo "<div class='col-lg-4 col-md-6 col-xs-12 card'>
-                            <div class='card-body'>
-                                <h5 class='card-title'>Homework $homeworkId</h5>
-                                <p class='card-text'>Please attempt the homework.</p>
-                            </div>
-                            <div class='card-body'>
-                                <a href='#' class='card-link'>Go</a>
-                            </div>
-                        </div>";
-                }
+                //     echo "<div class='col-lg-4 col-md-6 col-xs-12 card'>
+                //             <div class='card-body'>
+                //                 <h5 class='card-title'>Homework $homeworkId</h5>
+                //                 <p class='card-text'>Please attempt the homework.</p>
+                //             </div>
+                //             <div class='card-body'>
+                //                 <a href='#' class='card-link'>Go</a>
+                //             </div>
+                //         </div>";
+                // }
                 ?>
             </div>
         </div>

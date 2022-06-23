@@ -1,15 +1,15 @@
 
 <?php
+include_once("../auth/me.php");
 extract($_REQUEST);
-include('db.php');
 
-$sql=mysqli_query($conn,"select * from upload where id='$del'");
+$sql=mysqli_query($db,"select * from upload where id='$del'");
 $row=mysqli_fetch_array($sql);
 
 unlink("files/$row[name]");
 
-mysqli_query($conn,"delete from upload where id='$del'");
+mysqli_query($db,"delete from upload where id='$del'");
 
-header("Location:index.php");
+header("Location: homework.php");
 
 ?>

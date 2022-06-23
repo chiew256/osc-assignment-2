@@ -75,7 +75,6 @@
 		$result = mysqli_query($db, $query);
 		if (mysqli_num_rows($result) > 0) {
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				print_r($row);
 				$result_id = $row['result_id'];
 				$result_percentage = $row['result_percentage'];
 			}

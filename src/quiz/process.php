@@ -14,6 +14,8 @@ include '../auth/me.php';
     }
 
     if($_POST['submit']){
+        $subject_id = $_GET['subject_id'];
+        $quiz_id = $_GET['quiz_id'];
 
         $number = $_SESSION['question_id'];
         $selected_choice = $_POST['choice'];
@@ -57,12 +59,11 @@ include '../auth/me.php';
 
         // Go to next location
         if($_SESSION['display_num'] == $total){
-            header("Location: final.php");
+            header("Location: final.php?subject_id=$subject_id&quiz_id=$quiz_id");
             exit();
         }else{
             $_SESSION['display_num']++;
-
-            header("Location: question.php");
+            header("Location: question.php?subject_id=$subject_id&quiz_id=$quiz_id");
         }
 
         // print_r($_POST);
